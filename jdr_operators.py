@@ -153,7 +153,7 @@ def get_widget(self, context, widget_name, wgt_type):
     return widget
 
 def correct_scale(self, context, object):
-    unit_scale = bpy.data.scenes['Scene'].unit_settings.scale_length
+    unit_scale = bpy.context.scene.unit_settings.scale_length
     if round(unit_scale, 2) == 0.01:
         print("Unreal Scale")
     else:
@@ -258,7 +258,7 @@ def new_edit_bone(arm_obj, bone_name, context):
     # make bone orientation match the world
     bone.head = bpy.context.scene.cursor.location
     bone.tail = bone.head
-    unit_scale = bpy.data.scenes['Scene'].unit_settings.scale_length
+    unit_scale = bpy.context.scene.unit_settings.scale_length
     if round(unit_scale, 2) == 0.01:
         bone.tail.y += 10
     else:
@@ -638,7 +638,7 @@ def add_vertex_group(context, object_name, group_name):
 
 
 def create_mch_bone(self, context, child_name, arm, arm_obj):
-    unit_scale = bpy.data.scenes['Scene'].unit_settings.scale_length
+    unit_scale = bpy.context.scene.unit_settings.scale_length
     mch_name = rename_to_mch(child_name)
     child_bone = arm.edit_bones[child_name]
 
@@ -686,7 +686,7 @@ class JDRIGGING_OT_base_rig(JDRiggingOperator, Operator, AddObjectHelper):
         arm_obj.select_set(True)
 
         activate_bone_layers(arm)
-        unit_scale = bpy.data.scenes['Scene'].unit_settings.scale_length
+        unit_scale = bpy.context.scene.unit_settings.scale_length
 
         # Create TGT_root
         root_name = "TGT_root"
@@ -1114,7 +1114,7 @@ class JDRIGGING_OT_ctle(JDRiggingOperator, Operator, AddObjectHelper):
     wgt_type: bpy.props.StringProperty()
 
     def execute(self, context):
-        unit_scale = bpy.data.scenes['Scene'].unit_settings.scale_length
+        unit_scale = bpy.context.scene.unit_settings.scale_length
         # get list of selected objects
         list = [obj.name for obj in bpy.context.selected_objects]
         # deselect everything incase or it will confuse the 3D cursor later
